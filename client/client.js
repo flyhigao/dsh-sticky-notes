@@ -570,7 +570,7 @@ window.__ModuleLoader__.load({
         return ctx.slots.register({
           name: 'conversation.session.header.actions',
           id: 'sticky-notes',
-          order: 20,
+          order: 30,
           label: function () { return t('nav'); },
           locale: NS,
           inject: function () { return { t: t }; },
