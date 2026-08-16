@@ -16,7 +16,6 @@ window.__ModuleLoader__.load({
     var Button = primitives.Button;
     var Input = primitives.Input;
     var Modal = primitives.Modal;
-    var IconListPenOutline16 = primitives.IconListPenOutline16;
     var IconPlusOutline16 = primitives.IconPlusOutline16;
     var IconTrashOutline16 = primitives.IconTrashOutline16;
 
@@ -126,6 +125,50 @@ window.__ModuleLoader__.load({
       if (Number.isNaN(d.getTime())) return '';
       var pad = function (n) { return String(n).padStart(2, '0'); };
       return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+
+    function NoteFishIcon(props) {
+      var size = props.size || 16;
+      return React.createElement('svg', {
+        width: size,
+        height: size,
+        viewBox: '0 0 64 64',
+        fill: 'none',
+        stroke: 'currentColor',
+        strokeWidth: 4,
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+        'aria-hidden': true,
+        style: { display: 'block' },
+      },
+        React.createElement('path', {
+          d: 'M15 8h28a6 6 0 0 1 6 6v22l-14 14H21a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6z',
+          fill: 'none',
+          stroke: 'currentColor',
+        }),
+        React.createElement('path', {
+          d: 'M49 36h-8a4 4 0 0 0-4 4v8l12-12z',
+          fill: 'currentColor',
+          stroke: 'none',
+        }),
+        React.createElement('path', {
+          d: 'M20 32c0-6.8 6.8-11.3 13.2-8.6 4.6 1.9 7.8 5 7.8 8.6s-3.2 6.7-7.8 8.6c-6.4 2.7-13.2-1.8-13.2-8.6z',
+          fill: 'none',
+          stroke: 'currentColor',
+        }),
+        React.createElement('path', {
+          d: 'M39 32l8-6-2 6 2 6-8-6z',
+          fill: 'none',
+          stroke: 'currentColor',
+        }),
+        React.createElement('circle', {
+          cx: 27,
+          cy: 27.5,
+          r: 1.5,
+          fill: 'currentColor',
+          stroke: 'none',
+        })
+      );
     }
 
     function StickyNotesButton(props) {
@@ -283,7 +326,7 @@ window.__ModuleLoader__.load({
       var headerButton = React.createElement(Button, {
         variant: 'ghost',
         size: 'sm',
-        icon: React.createElement(IconListPenOutline16, { size: 16 }),
+        icon: React.createElement(NoteFishIcon, { size: 16 }),
         title: t('nav'),
         'aria-label': t('nav'),
         onClick: function () { setOpen(!open); },

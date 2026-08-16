@@ -1,5 +1,7 @@
 # dsh-sticky-notes
 
+<p align="center"><img src="assets/icon.svg" width="120" alt="dsh-sticky-notes"></p>
+
 [中文](README.md)
 
 Workspace sticky notes for DSH (DeepSeek Harness). It adds a compact note entry to the current conversation header, letting you create, edit, and delete multiple notes for the current workspace.

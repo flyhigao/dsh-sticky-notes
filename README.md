@@ -1,5 +1,7 @@
 # dsh-sticky-notes
 
+<p align="center"><img src="assets/icon.svg" width="120" alt="dsh-sticky-notes"></p>
+
 [English](README.en.md)
 
 DSH（DeepSeek Harness）工作区便签插件。在当前会话头部提供一个紧凑的便签入口，点击后可以为当前工作区创建、编辑和删除多张便签。
