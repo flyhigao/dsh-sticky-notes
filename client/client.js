@@ -488,11 +488,13 @@ window.__ModuleLoader__.load({
         }, saving ? t('saving') : t('save'))
       );
 
+      var dialogTitle = workspace ? (t('title') + ' · ' + workspace.title) : t('title');
+
       return React.createElement(Modal, {
         open: open,
         onClose: function () { setOpen(false); },
         className: 'dsh-sticky-notes-modal',
-        title: t('title'),
+        title: dialogTitle,
         closeLabel: t('close'),
         headless: true,
         children: React.createElement('div', {
@@ -514,7 +516,7 @@ window.__ModuleLoader__.load({
             React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
               React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 28, height: 28, alt: '', style: { display: 'block' } }),
               React.createElement('div', null,
-                React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, t('title')),
+                React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
                 React.createElement('div', {
                   style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary, #9ca3af)', marginTop: 2 },
                 }, t('subtitle'))
