@@ -493,16 +493,67 @@ window.__ModuleLoader__.load({
         onClose: function () { setOpen(false); },
         className: 'dsh-sticky-notes-modal',
         title: t('title'),
-        description: t('subtitle'),
         closeLabel: t('close'),
-        footer: footer,
-        children: React.createElement('div', { style: bodyStyle },
-          React.createElement('div', { style: listStyle },
-            notes.length === 0 && !loading
-              ? React.createElement('div', { style: { color: 'var(--dsw-alias-label-tertiary, #9ca3af)', fontSize: 13 } }, t('empty'))
-              : noteList
+        headless: true,
+        children: React.createElement('div', {
+          style: {
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '480px',
+          },
+        },
+          React.createElement('div', {
+            style: {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 18px',
+              borderBottom: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
+            },
+          },
+            React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
+              React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 28, height: 28, alt: '', style: { display: 'block' } }),
+              React.createElement('div', null,
+                React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, t('title')),
+                React.createElement('div', {
+                  style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary, #9ca3af)', marginTop: 2 },
+                }, t('subtitle'))
+              )
+            ),
+            React.createElement('button', {
+              type: 'button',
+              onClick: function () { setOpen(false); },
+              'aria-label': t('close'),
+              style: {
+                border: 'none',
+                background: 'transparent',
+                color: 'var(--dsw-alias-label-secondary, #4b5563)',
+                cursor: 'pointer',
+                fontSize: 20,
+                lineHeight: 1,
+                padding: 4,
+              },
+            }, '×')
           ),
-          React.createElement('div', { style: editorStyle }, editor)
+          React.createElement('div', {
+            style: Object.assign({}, bodyStyle, { padding: '16px' }),
+          },
+            React.createElement('div', { style: listStyle },
+              notes.length === 0 && !loading
+                ? React.createElement('div', { style: { color: 'var(--dsw-alias-label-tertiary, #9ca3af)', fontSize: 13 } }, t('empty'))
+                : noteList
+            ),
+            React.createElement('div', { style: editorStyle }, editor)
+          ),
+          React.createElement('div', {
+            style: {
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '8px',
+              padding: '14px 18px',
+              borderTop: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
+            },
+          }, footer)
         ),
       });
     }
