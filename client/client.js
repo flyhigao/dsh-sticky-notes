@@ -128,11 +128,11 @@ window.__ModuleLoader__.load({
     }
 
     function NoteFishIcon(props) {
-      var size = props.size || 16;
+      var size = props.size || 18;
       return React.createElement('svg', {
         width: size,
         height: size,
-        viewBox: '0 0 64 64',
+        viewBox: '10 4 44 52',
         fill: 'none',
         stroke: 'currentColor',
         strokeWidth: 4,
@@ -142,28 +142,38 @@ window.__ModuleLoader__.load({
         style: { display: 'block' },
       },
         React.createElement('path', {
-          d: 'M15 8h28a6 6 0 0 1 6 6v22l-14 14H21a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6z',
+          d: 'M14 8h30a6 6 0 0 1 6 6v22l-14 14H20a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6z',
           fill: 'none',
           stroke: 'currentColor',
         }),
         React.createElement('path', {
-          d: 'M49 36h-8a4 4 0 0 0-4 4v8l12-12z',
+          d: 'M50 36h-8a4 4 0 0 0-4 4v8l12-12z',
           fill: 'currentColor',
           stroke: 'none',
         }),
         React.createElement('path', {
-          d: 'M20 32c0-6.8 6.8-11.3 13.2-8.6 4.6 1.9 7.8 5 7.8 8.6s-3.2 6.7-7.8 8.6c-6.4 2.7-13.2-1.8-13.2-8.6z',
+          d: 'M24 34c0-8 8-12 14-10 5 2 8 6 8 10s-3 8-8 9c-6 1-14-1-14-9z',
           fill: 'none',
           stroke: 'currentColor',
         }),
         React.createElement('path', {
-          d: 'M39 32l8-6-2 6 2 6-8-6z',
+          d: 'M31 24l4-7 3 8z',
+          fill: 'none',
+          stroke: 'currentColor',
+        }),
+        React.createElement('path', {
+          d: 'M24 34l-8-5 4 5-4 5 8-5z',
+          fill: 'none',
+          stroke: 'currentColor',
+        }),
+        React.createElement('path', {
+          d: 'M33 38l6 3-5 3z',
           fill: 'none',
           stroke: 'currentColor',
         }),
         React.createElement('circle', {
-          cx: 27,
-          cy: 27.5,
+          cx: 40,
+          cy: 28,
           r: 1.5,
           fill: 'currentColor',
           stroke: 'none',
@@ -326,7 +336,7 @@ window.__ModuleLoader__.load({
       var headerButton = React.createElement(Button, {
         variant: 'ghost',
         size: 'sm',
-        icon: React.createElement(NoteFishIcon, { size: 16 }),
+        icon: React.createElement(NoteFishIcon, { size: 18 }),
         title: t('nav'),
         'aria-label': t('nav'),
         onClick: function () { setOpen(!open); },
