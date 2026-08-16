@@ -17,6 +17,16 @@ DSH（DeepSeek Harness）工作区便签插件。在当前会话头部提供一�
 - 服务端通过 `workspaceRegistry` 解析工作区路径，不信任浏览器传入的任意路径。
 - 写操作仅接受同源 POST，避免跨站请求。
 
+## 兼容性
+
+本插件使用 DSH 官方的加法插槽 `conversation.session.header.actions`，不会替换整个会话头部，也不会独占该位置。
+
+- 使用唯一 ID `sticky-notes`，避免与其他插件冲突。
+- 使用 `order: 30` 排序，和其他插件按顺序共存。
+- HTTP API 统一使用 `/dsh-sticky-notes/*` 前缀，避免接口冲突。
+- 弹窗样式通过独立的 `dsh-sticky-notes-modal` 类名控制，不污染全局样式。
+- 通过 `ctx.slots.inject(...)` 注册，不依赖插件加载顺序。
+
 ## 为什么是多张便签
 
 一个工作区会积累很多零散想法：待办、灵感、会议记录、临时代码片段。如果只有一张便签，所有内容会堆在一起，越来越难找。

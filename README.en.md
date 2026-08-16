@@ -17,6 +17,16 @@ Notes are stored as Markdown files in the `dsh-notes/` directory of the current 
 - The server resolves workspace paths through `workspaceRegistry`; it does not trust arbitrary paths from the browser.
 - Mutating endpoints only accept same-origin POST requests.
 
+## Compatibility
+
+This plugin uses DSH's additive `conversation.session.header.actions` slot. It does not replace the whole conversation header or own the position exclusively.
+
+- Uses a unique ID `sticky-notes` to avoid conflicts with other plugins.
+- Uses `order: 30` so it coexists with other header actions in a predictable order.
+- HTTP API is namespaced under `/dsh-sticky-notes/*`.
+- Dialog styles are scoped with the `dsh-sticky-notes-modal` class and do not pollute global styles.
+- Registers through `ctx.slots.inject(...)`, so it does not depend on plugin load order.
+
 ## Why multiple notes?
 
 A workspace accumulates many kinds of loose thoughts: todos, ideas, meeting notes, and temporary code snippets. A single note would quickly become a dumping ground.
