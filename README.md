@@ -1,5 +1,7 @@
 # dsh-sticky-notes
 
+[中文](README.zh.md)
+
 Workspace sticky notes for DSH (DeepSeek Harness). It adds a compact note entry to the current conversation header, letting you create, edit, and delete multiple notes for the current workspace.
 
 Notes are stored as Markdown files in the `dsh-notes/` directory of the current workspace. No hidden database, no extra index — just plain Markdown files.
