@@ -335,14 +335,30 @@ window.__ModuleLoader__.load({
         }
       }
 
-      var headerButton = React.createElement(Button, {
-        variant: 'ghost',
-        size: 'sm',
-        icon: React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 18, height: 18, alt: '', style: { display: 'block' } }),
+      var headerButton = React.createElement('button', {
+        type: 'button',
         title: t('nav'),
-        'aria-label': t('nav'),
         onClick: function () { setOpen(!open); },
-      });
+        style: {
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
+          height: '22px',
+          padding: '0 8px 0 4px',
+          borderRadius: '6px',
+          background: 'var(--dsw-alias-fill-tsp-secondary)',
+          color: 'var(--dsw-alias-label-secondary)',
+          border: 'none',
+          cursor: 'pointer',
+          font: 'inherit',
+          fontSize: '12px',
+          lineHeight: '22px',
+          whiteSpace: 'nowrap',
+        },
+      },
+        React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 14, height: 14, alt: '', style: { display: 'block' } }),
+        React.createElement('span', null, t('nav'))
+      );
 
       if (!open) return headerButton;
 
