@@ -1,6 +1,6 @@
 # dsh-sticky-notes
 
-<p align="center"><img src="assets/icon.svg" width="120" alt="dsh-sticky-notes"></p>
+<p align="center"><img src="assets/icon.png" width="120" alt="dsh-sticky-notes"></p>
 
 [中文](README.md)
 
