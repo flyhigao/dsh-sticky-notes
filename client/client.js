@@ -23,7 +23,7 @@ window.__ModuleLoader__.load({
       var styleTag = document.createElement('style');
       styleTag.setAttribute('data-plugin', 'dsh-sticky-notes');
       styleTag.setAttribute('data-plugin-css', 'dsh-sticky-notes');
-      styleTag.textContent = '.dsh-sticky-notes-modal{position:fixed!important;top:16px!important;right:16px!important;bottom:16px!important;left:auto!important;width:min(640px,calc(100vw - 32px))!important;height:calc(100vh - 32px)!important;max-width:none!important;max-height:none!important;margin:0!important;transform:none!important;overflow:hidden!important}';
+      styleTag.textContent = '.dsh-sticky-notes-modal{width:min(860px,calc(100vw - 48px))!important;max-width:none!important}';
       document.head.appendChild(styleTag);
     }
 
@@ -382,10 +382,8 @@ window.__ModuleLoader__.load({
 
       var bodyStyle = {
         display: 'flex',
-        flex: 1,
-        minHeight: 0,
         gap: '16px',
-        overflow: 'hidden',
+        minHeight: '480px',
       };
 
       var listStyle = {
@@ -393,7 +391,7 @@ window.__ModuleLoader__.load({
         flexShrink: 0,
         borderRight: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
         paddingRight: '12px',
-        minHeight: 0,
+        maxHeight: '50vh',
         overflowY: 'auto',
       };
 
@@ -428,10 +426,10 @@ window.__ModuleLoader__.load({
           onClick: function () { selectNote(note.id); },
           style: listItemStyle(note),
         },
-          React.createElement('div', { style: { fontWeight: 600, fontSize: 14 } }, note.title || t('untitled')),
+          React.createElement('div', { style: { fontWeight: 600, fontSize: 13 } }, note.title || t('untitled')),
           React.createElement('div', {
             style: {
-              fontSize: 13,
+              fontSize: 12,
               color: 'var(--dsw-alias-label-tertiary, #9ca3af)',
               marginTop: 4,
               whiteSpace: 'nowrap',
@@ -478,8 +476,7 @@ window.__ModuleLoader__.load({
               background: 'var(--dsw-alias-bg-base, #ffffff)',
               color: 'var(--dsw-alias-label-primary, #1f2328)',
               font: 'inherit',
-              fontSize: '15px',
-              lineHeight: 1.7,
+              lineHeight: 1.6,
             },
           }),
           error ? React.createElement('div', { style: { color: '#e5484d', fontSize: 13 } }, error) : null,
@@ -551,7 +548,7 @@ window.__ModuleLoader__.load({
           style: {
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
+            minHeight: '480px',
           },
         },
           React.createElement('div', {
@@ -567,7 +564,7 @@ window.__ModuleLoader__.load({
               React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 28, height: 28, alt: '', style: { display: 'block' } }),
               React.createElement('div', null,
                 React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
-                  React.createElement('div', { style: { fontWeight: 700, fontSize: 18 } }, dialogTitle),
+                  React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
                   workspaceSelect
                 ),
                 React.createElement('div', {
