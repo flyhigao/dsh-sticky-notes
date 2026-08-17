@@ -52,6 +52,8 @@ window.__ModuleLoader__.load({
       empty: '还没有便签，点击「新建便签」开始记录。',
       close: '关闭',
       untitled: '未命名便签',
+      workspace: '工作区',
+      workspaceSelect: '选择工作区',
     };
 
     var en = {
@@ -72,6 +74,8 @@ window.__ModuleLoader__.load({
       empty: 'No notes yet. Click “New note” to start.',
       close: 'Close',
       untitled: 'Untitled',
+      workspace: 'Workspace',
+      workspaceSelect: 'Select workspace',
     };
 
     function currentWorkspace(sessions, workspaces) {
@@ -238,10 +242,24 @@ window.__ModuleLoader__.load({
       var status = _i[0];
       var setStatus = _i[1];
 
+      var _j = useState('');
+      var selectedWorkspaceId = _j[0];
+      var setSelectedWorkspaceId = _j[1];
+
+      var selectedWorkspace = useMemo(function () {
+        var items = workspaces && Array.isArray(workspaces.items) ? workspaces.items : [];
+        return items.find(function (w) { return w.workspaceId === selectedWorkspaceId; }) || workspace;
+      }, [selectedWorkspaceId, workspaceKey, workspaces]);
+      var selectedWorkspaceKey = selectedWorkspace ? selectedWorkspace.workspaceId : '';
+
+      useEffect(function () {
+        if (open) setSelectedWorkspaceId(workspaceKey);
+      }, [open, workspaceKey]);
+
       useEffect(function () {
         if (!open) return;
         var cancelled = false;
-        if (!workspace) {
+        if (!selectedWorkspace) {
           setNotes([]);
           setSelectedId(null);
           setTitle('');
@@ -253,7 +271,7 @@ window.__ModuleLoader__.load({
         setLoading(true);
         setError('');
         setStatus('');
-        fetchList(workspace.workspaceId).then(function (data) {
+        fetchList(selectedWorkspace.workspaceId).then(function (data) {
           if (cancelled) return;
           setNotes(data.notes || []);
           var first = (data.notes || [])[0];
@@ -267,7 +285,7 @@ window.__ModuleLoader__.load({
           setLoading(false);
         });
         return function () { cancelled = true; };
-      }, [open, workspaceKey]);
+      }, [open, selectedWorkspaceKey]);
 
       function selectNote(id) {
         var note = notes.find(function (n) { return n.id === id; });
@@ -288,12 +306,12 @@ window.__ModuleLoader__.load({
       }
 
       async function handleSave() {
-        if (!workspace) return;
+        if (!selectedWorkspace) return;
         setSaving(true);
         setError('');
         setStatus('');
         try {
-          var data = await fetchSave(workspace.workspaceId, {
+          var data = await fetchSave(selectedWorkspace.workspaceId, {
             id: selectedId || undefined,
             title: title,
             content: content,
@@ -316,13 +334,13 @@ window.__ModuleLoader__.load({
       }
 
       async function handleDelete() {
-        if (!workspace || !selectedId) return;
+        if (!selectedWorkspace || !selectedId) return;
         if (!window.confirm(t('deleteConfirm'))) return;
         setSaving(true);
         setError('');
         setStatus('');
         try {
-          await fetchDelete(workspace.workspaceId, selectedId);
+          await fetchDelete(selectedWorkspace.workspaceId, selectedId);
           setNotes(function (prev) { return prev.filter(function (n) { return n.id !== selectedId; }); });
           setSelectedId(null);
           setTitle('');
@@ -488,7 +506,36 @@ window.__ModuleLoader__.load({
         }, saving ? t('saving') : t('save'))
       );
 
-      var dialogTitle = workspace ? (t('title') + ' · ' + workspace.title) : t('title');
+      var workspaceItems = workspaces && Array.isArray(workspaces.items) ? workspaces.items : [];
+      var workspaceSelect = React.createElement('select', {
+        value: selectedWorkspace ? selectedWorkspace.workspaceId : '',
+        onChange: function (e) {
+          setSelectedWorkspaceId(e.target.value);
+          setError('');
+          setStatus('');
+        },
+        disabled: loading || saving || workspaceItems.length === 0,
+        'aria-label': t('workspaceSelect'),
+        title: t('workspaceSelect'),
+        style: {
+          height: '28px',
+          maxWidth: '260px',
+          minWidth: '120px',
+          padding: '0 28px 0 8px',
+          border: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
+          borderRadius: '6px',
+          background: 'var(--dsw-alias-fill-tsp-secondary, transparent)',
+          color: 'var(--dsw-alias-label-primary, #1f2328)',
+          font: 'inherit',
+          fontSize: '14px',
+          lineHeight: '28px',
+          cursor: workspaceItems.length === 0 ? 'not-allowed' : 'pointer',
+        },
+      }, workspaceItems.map(function (item) {
+        return React.createElement('option', { key: item.workspaceId, value: item.workspaceId }, item.title || item.path);
+      }));
+
+      var dialogTitle = t('title');
 
       return React.createElement(Modal, {
         open: open,
@@ -516,7 +563,10 @@ window.__ModuleLoader__.load({
             React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
               React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 28, height: 28, alt: '', style: { display: 'block' } }),
               React.createElement('div', null,
-                React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
+                React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
+                  React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
+                  workspaceSelect
+                ),
                 React.createElement('div', {
                   style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary, #9ca3af)', marginTop: 2 },
                 }, t('subtitle'))
