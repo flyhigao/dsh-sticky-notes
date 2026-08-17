@@ -53,6 +53,7 @@ window.__ModuleLoader__.load({
       close: '关闭',
       untitled: '未命名便签',
       workspace: '工作区',
+      currentWorkspace: '当前工作区',
       workspaceSelect: '选择工作区',
     };
 
@@ -75,6 +76,7 @@ window.__ModuleLoader__.load({
       close: 'Close',
       untitled: 'Untitled',
       workspace: 'Workspace',
+      currentWorkspace: 'Current workspace',
       workspaceSelect: 'Select workspace',
     };
 
@@ -518,18 +520,18 @@ window.__ModuleLoader__.load({
         'aria-label': t('workspaceSelect'),
         title: t('workspaceSelect'),
         style: {
-          height: '36px',
-          width: '280px',
-          maxWidth: '32vw',
-          minWidth: '220px',
-          padding: '0 36px 0 12px',
+          height: '32px',
+          width: '200px',
+          maxWidth: '220px',
+          minWidth: '140px',
+          padding: '0 28px 0 10px',
           border: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
-          borderRadius: '8px',
+          borderRadius: '7px',
           background: 'var(--dsw-alias-bg-layer-2, var(--dsw-alias-fill-tsp-secondary, transparent))',
           color: 'var(--dsw-alias-label-primary, #1f2328)',
           font: 'inherit',
-          fontSize: '15px',
-          lineHeight: '36px',
+          fontSize: '14px',
+          lineHeight: '32px',
           cursor: workspaceItems.length === 0 ? 'not-allowed' : 'pointer',
         },
       }, workspaceItems.map(function (item) {
@@ -570,7 +572,16 @@ window.__ModuleLoader__.load({
                 }, t('subtitle'))
               )
             ),
-            React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 } },
+            React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 } },
+              React.createElement('span', {
+                style: {
+                  color: 'var(--dsw-alias-label-secondary, #4b5563)',
+                  font: 'inherit',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  whiteSpace: 'nowrap',
+                },
+              }, t('currentWorkspace')),
               workspaceSelect,
               React.createElement('button', {
                 type: 'button',
