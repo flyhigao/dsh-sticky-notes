@@ -13,6 +13,7 @@ Notes are stored as Markdown files in the `dsh-notes/` directory of the current 
 - Quick entry in the current conversation header, no sidebar clutter.
 - Multiple notes per workspace: list, preview, edit, create, save, and delete.
 - A workspace selector in the dialog, defaulting to the current conversation workspace and allowing other registered local workspaces.
+- The note UI follows DSH's active language setting, with Chinese and English copy.
 - Data is stored in the current workspace: `<workspace>/dsh-notes/*.md`.
 - One Markdown file per note, easy to inspect and manage with any editor or Git.
 - The server resolves workspace paths through `workspaceRegistry`; it does not trust arbitrary paths from the browser.
