@@ -57,30 +57,27 @@ window.__ModuleLoader__.load({
       workspaceSelect: '选择工作区',
     };
 
-    // The note surface intentionally stays Chinese for now, even when the
-    // surrounding DSH locale is English. The product copy requested for this
-    // first release is Chinese throughout the dialog and its actions.
     var en = {
-      nav: '便签',
-      title: '工作区便签',
-      subtitle: '保存在当前工作区的 dsh-notes/ 目录',
-      newNote: '新建便签',
-      titlePlaceholder: '便签标题',
-      contentPlaceholder: '写下你的想法…',
-      save: '保存',
-      saving: '保存中…',
-      delete: '删除',
-      deleteConfirm: '确定删除这张便签吗？',
-      saved: '已保存',
-      deleted: '已删除',
-      loading: '加载中…',
-      noWorkspace: '还没有可用的工作区，请先打开或创建一个工作区。',
-      empty: '还没有便签，点击「新建便签」开始记录。',
-      close: '关闭',
-      untitled: '未命名便签',
-      workspace: '工作区',
-      currentWorkspace: '当前工作区',
-      workspaceSelect: '选择工作区',
+      nav: 'Notes',
+      title: 'Workspace Notes',
+      subtitle: 'Stored in the current workspace dsh-notes/ directory',
+      newNote: 'New note',
+      titlePlaceholder: 'Note title',
+      contentPlaceholder: 'Write your thoughts…',
+      save: 'Save',
+      saving: 'Saving…',
+      delete: 'Delete',
+      deleteConfirm: 'Delete this note?',
+      saved: 'Saved',
+      deleted: 'Deleted',
+      loading: 'Loading…',
+      noWorkspace: 'No workspace available yet. Open or create a workspace first.',
+      empty: 'No notes yet. Click “New note” to start.',
+      close: 'Close',
+      untitled: 'Untitled',
+      workspace: 'Workspace',
+      currentWorkspace: 'Current workspace',
+      workspaceSelect: 'Select workspace',
     };
 
     function currentWorkspace(sessions, workspaces) {
