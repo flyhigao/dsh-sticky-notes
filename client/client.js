@@ -46,6 +46,7 @@ window.__ModuleLoader__.load({
       delete: '删除',
       deleteConfirm: '确定删除这张便签吗？',
       saved: '已保存',
+      autoSaved: '已自动保存',
       deleted: '已删除',
       loading: '加载中…',
       noWorkspace: '还没有可用的工作区，请先打开或创建一个工作区。',
@@ -69,6 +70,7 @@ window.__ModuleLoader__.load({
       delete: 'Delete',
       deleteConfirm: 'Delete this note?',
       saved: 'Saved',
+      autoSaved: 'Auto-saved',
       deleted: 'Deleted',
       loading: 'Loading…',
       noWorkspace: 'No workspace available yet. Open or create a workspace first.',
@@ -289,29 +291,18 @@ window.__ModuleLoader__.load({
         return function () { cancelled = true; };
       }, [open, selectedWorkspaceKey]);
 
-      function selectNote(id) {
-        var note = notes.find(function (n) { return n.id === id; });
-        if (!note) return;
-        setSelectedId(id);
-        setTitle(note.title);
-        setContent(note.content);
-        setError('');
-        setStatus('');
+      function draftNeedsSave() {
+        if (!selectedWorkspace) return false;
+        var hasText = title.trim() !== '' || content.trim() !== '';
+        if (!selectedId) return hasText;
+        var original = notes.find(function (n) { return n.id === selectedId; });
+        return original === undefined || original.title !== title || original.content !== content;
       }
 
-      function newNote() {
-        setSelectedId(null);
-        setTitle('');
-        setContent('');
-        setError('');
-        setStatus('');
-      }
-
-      async function handleSave() {
-        if (!selectedWorkspace) return;
+      async function persistDraft(messageKey) {
+        if (!selectedWorkspace || !draftNeedsSave()) return true;
         setSaving(true);
         setError('');
-        setStatus('');
         try {
           var data = await fetchSave(selectedWorkspace.workspaceId, {
             id: selectedId || undefined,
@@ -327,12 +318,39 @@ window.__ModuleLoader__.load({
           setSelectedId(note.id);
           setTitle(note.title);
           setContent(note.content);
-          setStatus(t('saved'));
+          if (messageKey) setStatus(t(messageKey));
+          return true;
         } catch (err) {
           setError(err && err.message ? err.message : String(err));
+          return false;
         } finally {
           setSaving(false);
         }
+      }
+
+      async function selectNote(id) {
+        if (id === selectedId) return;
+        if (!(await persistDraft('autoSaved'))) return;
+        var note = notes.find(function (n) { return n.id === id; });
+        if (!note) return;
+        setSelectedId(id);
+        setTitle(note.title);
+        setContent(note.content);
+        setError('');
+        setStatus('');
+      }
+
+      async function newNote() {
+        if (!(await persistDraft('autoSaved'))) return;
+        setSelectedId(null);
+        setTitle('');
+        setContent('');
+        setError('');
+        setStatus('');
+      }
+
+      async function handleSave() {
+        await persistDraft('saved');
       }
 
       async function handleDelete() {
@@ -353,6 +371,11 @@ window.__ModuleLoader__.load({
         } finally {
           setSaving(false);
         }
+      }
+
+      async function closeNotes() {
+        if (!(await persistDraft('autoSaved'))) return;
+        setOpen(false);
       }
 
       var headerButton = React.createElement('button', {
@@ -425,7 +448,7 @@ window.__ModuleLoader__.load({
         return React.createElement('button', {
           key: note.id,
           type: 'button',
-          onClick: function () { selectNote(note.id); },
+          onClick: function () { void selectNote(note.id); },
           style: listItemStyle(note),
         },
           React.createElement('div', { style: { fontWeight: 600, fontSize: 13 } }, note.title || t('untitled')),
@@ -512,9 +535,14 @@ window.__ModuleLoader__.load({
       var workspaceSelect = React.createElement('select', {
         value: selectedWorkspace ? selectedWorkspace.workspaceId : '',
         onChange: function (e) {
-          setSelectedWorkspaceId(e.target.value);
-          setError('');
-          setStatus('');
+          var nextWorkspaceId = e.target.value;
+          if (nextWorkspaceId === selectedWorkspaceKey) return;
+          void (async function () {
+            if (!(await persistDraft('autoSaved'))) return;
+            setSelectedWorkspaceId(nextWorkspaceId);
+            setError('');
+            setStatus('');
+          })();
         },
         disabled: loading || saving || workspaceItems.length === 0,
         'aria-label': t('workspaceSelect'),
@@ -542,7 +570,7 @@ window.__ModuleLoader__.load({
 
       return React.createElement(Modal, {
         open: open,
-        onClose: function () { setOpen(false); },
+        onClose: function () { void closeNotes(); },
         className: 'dsh-sticky-notes-modal',
         title: dialogTitle,
         closeLabel: t('close'),
@@ -585,7 +613,7 @@ window.__ModuleLoader__.load({
               workspaceSelect,
               React.createElement('button', {
                 type: 'button',
-                onClick: function () { setOpen(false); },
+                onClick: function () { void closeNotes(); },
                 'aria-label': t('close'),
                 style: {
                   border: 'none',
