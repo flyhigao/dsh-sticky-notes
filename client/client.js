@@ -518,17 +518,18 @@ window.__ModuleLoader__.load({
         'aria-label': t('workspaceSelect'),
         title: t('workspaceSelect'),
         style: {
-          height: '28px',
-          maxWidth: '260px',
-          minWidth: '120px',
-          padding: '0 28px 0 8px',
+          height: '36px',
+          width: '280px',
+          maxWidth: '32vw',
+          minWidth: '220px',
+          padding: '0 36px 0 12px',
           border: '1px solid var(--dsw-alias-border-l1, #e5e7eb)',
-          borderRadius: '6px',
-          background: 'var(--dsw-alias-fill-tsp-secondary, transparent)',
+          borderRadius: '8px',
+          background: 'var(--dsw-alias-bg-layer-2, var(--dsw-alias-fill-tsp-secondary, transparent))',
           color: 'var(--dsw-alias-label-primary, #1f2328)',
           font: 'inherit',
-          fontSize: '14px',
-          lineHeight: '28px',
+          fontSize: '15px',
+          lineHeight: '36px',
           cursor: workspaceItems.length === 0 ? 'not-allowed' : 'pointer',
         },
       }, workspaceItems.map(function (item) {
@@ -563,29 +564,29 @@ window.__ModuleLoader__.load({
             React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
               React.createElement('img', { src: NOTE_ICON_DATA_URI, width: 28, height: 28, alt: '', style: { display: 'block' } }),
               React.createElement('div', null,
-                React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '8px' } },
-                  React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
-                  workspaceSelect
-                ),
+                React.createElement('div', { style: { fontWeight: 700, fontSize: 16 } }, dialogTitle),
                 React.createElement('div', {
                   style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary, #9ca3af)', marginTop: 2 },
                 }, t('subtitle'))
               )
             ),
-            React.createElement('button', {
-              type: 'button',
-              onClick: function () { setOpen(false); },
-              'aria-label': t('close'),
-              style: {
-                border: 'none',
-                background: 'transparent',
-                color: 'var(--dsw-alias-label-secondary, #4b5563)',
-                cursor: 'pointer',
-                fontSize: 20,
-                lineHeight: 1,
-                padding: 4,
-              },
-            }, '×')
+            React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 } },
+              workspaceSelect,
+              React.createElement('button', {
+                type: 'button',
+                onClick: function () { setOpen(false); },
+                'aria-label': t('close'),
+                style: {
+                  border: 'none',
+                  background: 'transparent',
+                  color: 'var(--dsw-alias-label-secondary, #4b5563)',
+                  cursor: 'pointer',
+                  fontSize: 22,
+                  lineHeight: 1,
+                  padding: 6,
+                },
+              }, '×')
+            )
           ),
           React.createElement('div', {
             style: Object.assign({}, bodyStyle, { padding: '16px' }),
