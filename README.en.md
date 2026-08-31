@@ -22,8 +22,9 @@ Notes are stored as Markdown files in the `dsh-notes/` directory of the current 
 
 ## Compatibility
 
-This plugin uses DSH's additive `conversation.session.header.actions` slot. It does not replace the whole conversation header or own the position exclusively.
-
+- Supports DSH `0.1.0-rc.6`, `0.1.0-rc.8`, `0.1.1-rc.2`, `0.1.2-alpha.2`, and later versions.
+- Zero external runtime dependencies; does not depend on the deprecated `dsh-client-runtime`.
+- This plugin uses DSH's additive `conversation.session.header.actions` slot. It does not replace the whole conversation header or own the position exclusively.
 - Uses a unique ID `sticky-notes` to avoid conflicts with other plugins.
 - Uses `order: 30` so it coexists with other header actions in a predictable order.
 - HTTP API is namespaced under `/dsh-sticky-notes/*`.
@@ -58,30 +59,10 @@ Restart `dsh web`, open any conversation, and you will see the note icon on the 
    git clone git@github.com:flyhigao/dsh-sticky-notes.git
    ```
 
-2. Add it to the web profile `package.json`:
-
-   ```json
-   {
-     "dependencies": {
-       "dsh-sticky-notes": "file:/path/to/dsh-sticky-notes"
-     },
-     "dsh": {
-       "profile": {
-         "bundles": [
-           "@deepseek-ai/dsh-base",
-           "@deepseek-ai/dsh-web-app",
-           "dsh-sticky-notes"
-         ]
-       }
-     }
-   }
-   ```
-
-3. Install and restart:
+2. Install into the Web profile and restart:
 
    ```bash
-   cd ~/.dsh/profiles/web
-   pnpm install
+   dsh plugin --profile web add file:/path/to/dsh-sticky-notes
    # restart dsh web
    ```
 

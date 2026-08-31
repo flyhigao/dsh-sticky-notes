@@ -22,8 +22,9 @@ DSH（DeepSeek Harness）工作区便签插件。在当前会话头部提供一�
 
 ## 兼容性
 
-本插件使用 DSH 官方的加法插槽 `conversation.session.header.actions`，不会替换整个会话头部，也不会独占该位置。
-
+- 支持 DSH `0.1.0-rc.6`、`0.1.0-rc.8`、`0.1.1-rc.2`、`0.1.2-alpha.2` 及更高版本。
+- 零外部运行时依赖，不依赖已被废弃的 `dsh-client-runtime`。
+- 本插件使用 DSH 官方的加法插槽 `conversation.session.header.actions`，不会替换整个会话头部，也不会独占该位置。
 - 使用唯一 ID `sticky-notes`，避免与其他插件冲突。
 - 使用 `order: 30` 排序，和其他插件按顺序共存。
 - HTTP API 统一使用 `/dsh-sticky-notes/*` 前缀，避免接口冲突。
@@ -52,7 +53,7 @@ dsh plugin --profile web add github:flyhigao/dsh-sticky-notes
 
 ### 本地开发安装
 
-如果你正在本仓库开发：
+如果你正在本地开发：
 
 1. 克隆仓库：
 
@@ -60,30 +61,10 @@ dsh plugin --profile web add github:flyhigao/dsh-sticky-notes
    git clone git@github.com:flyhigao/dsh-sticky-notes.git
    ```
 
-2. 在 web profile 的 `package.json` 中加入：
-
-   ```json
-   {
-     "dependencies": {
-       "dsh-sticky-notes": "file:/path/to/dsh-sticky-notes"
-     },
-     "dsh": {
-       "profile": {
-         "bundles": [
-           "@deepseek-ai/dsh-base",
-           "@deepseek-ai/dsh-web-app",
-           "dsh-sticky-notes"
-         ]
-       }
-     }
-   }
-   ```
-
-3. 安装并重启：
+2. 安装到 Web profile 并重启：
 
    ```bash
-   cd ~/.dsh/profiles/web
-   pnpm install
+   dsh plugin --profile web add file:/path/to/dsh-sticky-notes
    # 重启 dsh web
    ```
 

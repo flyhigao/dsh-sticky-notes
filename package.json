@@ -1,7 +1,7 @@
 {
   "name": "dsh-sticky-notes",
   "description": "Workspace sticky notes for DSH: save multiple Markdown notes inside the current workspace.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
